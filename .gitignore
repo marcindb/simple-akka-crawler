@@ -1,6 +1,37 @@
-*.class
+/.idea/
+/project/boot/
+/project/plugins/project
+target/
+lib_managed/
+src_managed/
+test-output/
+*.iml
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Eclipse
+.project
+.cache
+.history
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
