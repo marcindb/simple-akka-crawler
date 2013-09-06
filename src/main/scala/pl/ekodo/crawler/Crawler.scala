@@ -33,10 +33,11 @@ trait Crawler[T] {
     system.scheduler.schedule(0 milliseconds, frequency)(getResponse(request))
   }
 
+  import system.dispatcher // execution context for futures
+  protected def pipeline(): HttpRequest => Future[HttpResponse] = sendReceive
+
   private def getResponse(request: Request) = {
-    import system.dispatcher // execution context for futures
-    val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
-    val response: Future[HttpResponse] = pipeline(Get(request.uri))
+    val response: Future[HttpResponse] = pipeline()(Get(request.uri))
     response onComplete {
       case Success(t) =>
         dao.clear()

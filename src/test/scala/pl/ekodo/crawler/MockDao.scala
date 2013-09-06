@@ -10,17 +10,17 @@ class MockDao extends DAO[MockObject] with Logging {
 
   def find(id: String): MockObject = map.get(id) match {
     case Some(t) => t
-    case None => MockObject("not exists")
+    case None => MockObject("")
   }
 
   def save(t: MockObject) = {
     map = map + (t.id -> t)
-    logger.debug("saved")
   }
 
   def remove(id: String) = { map = map - id }
 
   def clear(): Unit = { map = Map[String, MockObject]() }
+  
 }
 
 trait MockObjectBuilder extends ObjectBuilder[MockObject] {
