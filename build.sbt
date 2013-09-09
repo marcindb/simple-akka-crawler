@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
   "io.spray"            %   "spray-testkit" % "1.2-M8" % "test",
   "com.typesafe.akka"   %%  "akka-actor"    % "2.2.0-RC1",
   "com.typesafe.akka"   %%  "akka-testkit"  % "2.2.0-RC1" % "test",
-  "org.specs2"          %%  "specs2"        % "1.14" % "test",
+  "org.scalatest" % "scalatest_2.10" % "2.0.M6" % "test",
   "org.jsoup"           %   "jsoup"         % "1.7.2",
   "junit"               %   "junit"         % "4.8.1" % "test",
   "com.typesafe"	    %%  "scalalogging-slf4j" % "1.0.1",

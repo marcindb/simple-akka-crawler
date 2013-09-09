@@ -1,6 +1,5 @@
 package pl.ekodo.crawler
 
-import org.specs2.mutable.Specification
 import akka.actor.ActorSystem
 import spray.http.HttpRequest
 import scala.concurrent.Future
@@ -9,18 +8,30 @@ import spray.http.HttpResponse
 import spray.http.HttpEntity
 import scala.concurrent._
 import ExecutionContext.Implicits.global
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.FlatSpec
+import org.scalatest.WordSpecLike
+import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.matchers.MustMatchers
+import org.scalatest.Matchers
+import akka.testkit.TestKit
 
-class CrawlerTest extends Specification {
+class CrawlerTest(_system: ActorSystem) extends TestKit(_system) with WordSpecLike with Matchers with BeforeAndAfterAll{
 
+  def this() = this(ActorSystem("test"))
   val dao = new MockDao
-  val testCrawler = new TestCrawler(ActorSystem("test"), dao)
+  val testCrawler = new TestCrawler(_system, dao)
   val id = "test"
 
-  "Crawler should" should {
+  override def afterAll = {
+    TestKit.shutdownActorSystem(_system)
+  }  
+    
+  "Crawler should" must {
     "load data" in {
       testCrawler.get(Request("http://ekodo.pl"))
       Thread.sleep(1000)
-      dao.find("http://ekodo.pl") must not be equalTo(None)
+      dao.find("http://ekodo.pl") should not be equal(None)
     }
   }
 

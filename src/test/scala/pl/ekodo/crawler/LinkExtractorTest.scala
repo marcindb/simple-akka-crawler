@@ -1,25 +1,23 @@
 package pl.ekodo.crawler
 
-import org.specs2.mutable.Specification
-import org.junit.runner.RunWith
-import org.specs2.runner.JUnitRunner
+import org.scalatest.Matchers
+import org.scalatest.WordSpecLike
 
-@RunWith(classOf[JUnitRunner])
-class LinkExtractorTest extends Specification {
+class LinkExtractorTest extends WordSpecLike with Matchers {
 
   "Link extractor" should {
     "extract 0 links" in {
       val links = DefaultLinkExtractor.extract("")
-      links.size must equalTo(0)
+      links.size should equal(0)
     }
     "extract 1 link" in {
       val links = DefaultLinkExtractor.extract("<html><body><a href='test'></a></body></html>")
-      links.size must equalTo(1)
+      links.size should equal(1)
     }
 
-    "extract 1 link" in {
+    "extract 1 link when there are 3 the same links" in {
       val links = DefaultLinkExtractor.extract("<html><body><a href='test'></a><a href='test'></a><a href='test'></a></body></html>")
-      links.size must equalTo(1)
+      links.size should equal(1)
     }
   }
 
