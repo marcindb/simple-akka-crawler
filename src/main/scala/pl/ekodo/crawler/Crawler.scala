@@ -15,7 +15,7 @@ import spray.http.HttpRequest
 import spray.http.HttpResponse
 
 case class Request(val uri: String)
-case class Response(val body: String)
+case class Response(val uri: String, val body: String)
 
 trait ActorSystemWrapper {
   implicit val system: ActorSystem
@@ -41,7 +41,7 @@ trait Crawler[T] {
     response onComplete {
       case Success(t) =>
         dao.clear()
-        val objects = build(Response(t.entity.asString))
+        val objects = build(Response(request.uri, t.entity.asString))
         objects.foreach(dao.save(_))
       case Failure(t) => throw new IllegalStateException(t.getMessage())
     }

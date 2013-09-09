@@ -16,10 +16,11 @@ class CrawlerTest extends Specification {
   val testCrawler = new TestCrawler(ActorSystem("test"), dao)
   val id = "test"
 
-  "MyService" should {
-    "return a greeting for GET requests to the root path" in {
+  "Crawler should" should {
+    "load data" in {
       testCrawler.get(Request("http://ekodo.pl"))
-      dao.find(id) must equalTo(MockObject(id))
+      Thread.sleep(1000)
+      dao.find("http://ekodo.pl") must not be equalTo(None)
     }
   }
 
