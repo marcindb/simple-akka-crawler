@@ -40,7 +40,6 @@ trait Crawler[T] {
     val response: Future[HttpResponse] = pipeline()(Get(request.uri))
     response onComplete {
       case Success(t) =>
-        dao.clear()
         val objects = build(Response(request.uri, t.entity.asString))
         objects.foreach(dao.save(_))
       case Failure(t) => throw new IllegalStateException(t.getMessage())
