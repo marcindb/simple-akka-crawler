@@ -11,3 +11,4 @@ trait DAO[T] {
   def clear(): Unit
 
 }
+

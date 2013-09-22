@@ -21,5 +21,5 @@ class MockDao extends DAO[MockObject] with Logging {
 }
 
 trait MockObjectBuilder extends ObjectBuilder[MockObject] {
-  def build(response: Response): List[MockObject] = { List(MockObject(response.uri, response.body)) }
+  def build(response: Response): MockObject = { MockObject(response.uri, response.body) }
 }
